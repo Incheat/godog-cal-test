@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"testing"
 
 	"github.com/cucumber/godog"
 )
@@ -29,4 +30,19 @@ func InitializeScenario(ctx *godog.ScenarioContext) {
   ctx.Step(`^I have the numbers (\d+) and (\d+)$`, twoNumbers)
   ctx.Step(`^I add them$`, iAddThem)
   ctx.Step(`^the result should be (\d+)$`, theResultShouldBe)
+}
+
+func TestFeatures(t *testing.T) {
+	suite := godog.TestSuite{
+		ScenarioInitializer: InitializeScenario,
+		Options: &godog.Options{
+			Format:   "pretty",
+			Paths:    []string{"features"},
+			TestingT: t,
+		},
+	}
+
+	if suite.Run() != 0 {
+		t.Fatal("non-zero status returned, failed to run feature tests")
+	}
 }
