@@ -15,7 +15,7 @@ func twoNumbers(x, y int) error {
 }
 
 func iAddThem() error {
-	result = a + b
+	result = a + b - 1
 	return nil
 }
 
